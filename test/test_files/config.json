@@ -1,0 +1,6 @@
+{
+	"role": "evaluate",
+	"cmd": "team",
+	"teams": "./test_files/team.csv",
+	"scores": "./test_files/scores.csv"
+}
