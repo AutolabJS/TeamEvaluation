@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - "6"
+services:
+  - mysql
+
+env:
+  - CODECLIMATE_REPO_TOKEN=e73bb4af08b3b24517d55eda5d128e5954d62fbe7dfbeaf298ba7d99d23e1d63
+
+before_install:
+  - "export MYSQL_USER=travis"
+  - mysql -uroot -e 'CREATE DATABASE eval;'
+  - mysql -uroot eval < ./test/test_files/test_dump.sql
+
+install:
+  - yarn
+
+script:
+  - yarn test
+  - yarn coverage
+
+after_script:
+  - "test -d .nyc_output && npm install -g codeclimate-test-reporter && nyc report --reporter=text-lcov | codeclimate-test-reporter"
